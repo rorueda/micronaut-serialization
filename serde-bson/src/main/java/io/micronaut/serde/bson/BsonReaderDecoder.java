@@ -281,7 +281,10 @@ public final class BsonReaderDecoder extends AbstractDecoderPerStructureStreamDe
 
     @Override
     protected BigDecimal getBigDecimalFromNumber(Number number) {
-        return ((Decimal128) number).bigDecimalValue();
+        if (number instanceof Decimal128 decimal128) {
+            return decimal128.bigDecimalValue();
+        }
+        return super.getBigDecimalFromNumber(number);
     }
 
     @Override
